@@ -1,19 +1,26 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Forminput from "./componets/Forminput";
-import { useState } from "react";
+import { useRef } from "react";
 
 function App() {
-  const [username, setUsername] = useState("")
+  // const [username, setUsername] = useState("");
+  const usernameRef = useRef();
 
-  console.log(username)
+  console.log("re-rendered");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target)
+    console.log(Object.fromEntries(data.entries()))
+  };
   return (
     <dev className="app">
-      <form>
-        <Forminput placeholder="Username" setUsername={setUsername}/>
-        <Forminput placeholder="Email" />
-        <Forminput placeholder="Full name" />
-        <Forminput placeholder="Password" />
+      <form onSubmit={handleSubmit}>
+        <Forminput name="username" placeholder="Username" />
+        <Forminput name="email" placeholder="Email" />
+        <Forminput name="fullname" placeholder="Full name" />
+        <Forminput name="password" placeholder="Password" />
+        <button>Submit</button>
       </form>
     </dev>
   );
